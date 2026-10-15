@@ -104,20 +104,49 @@ test("mobile real photos fit the page and reduced motion pauses automatic rotati
   });
 });
 
-test('original photo parts animate and kettle copy stays beside the photograph', async ({page}) => {
- await page.goto('/#experiencia-3d');
- await page.locator('[data-product="1"]').click();
- await expect(page.locator('.product-kettle-lid')).toHaveCount(1);
- expect(await page.locator('.product-kettle-lid').evaluate(el=>getComputedStyle(el).animationName)).toBe('kettle-lid');
- const copy = await page.locator('.studio-copy').boundingBox();
- const photo = await page.locator('.studio-photo-host').boundingBox();
- expect(copy.x+copy.width).toBeLessThan(photo.x);
- await page.locator('[data-studio-motion]').click();
- expect(await page.locator('.product-kettle-lid').evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('paused');
- await page.locator('[data-product="2"]').click();
- await expect(page.locator('.product-drawer--left,.product-drawer--right')).toHaveCount(2);
- for(const i of [0,3]) {
-   await page.locator(`[data-product="${i}"]`).click();
-   expect(await page.locator('.product-photo-scene__frame').evaluate(el=>getComputedStyle(el).animationName)).toMatch(/turn/);
- }
+test("whole product photos crossfade without masks and rapid selection keeps the latest product", async ({
+  page,
+}) => {
+  await page.goto("/#experiencia-3d");
+  await expect(page.locator(".product-studio")).toHaveAttribute(
+    "data-active-product",
+    "0",
+  );
+  await page.locator('[data-product="1"]').click();
+  await expect(page.locator(".product-studio")).toHaveAttribute(
+    "data-active-product",
+    "1",
+  );
+  await expect(page.locator(".product-photo-outgoing")).toHaveCount(1);
+  expect(
+    await page
+      .locator("[data-real-product-photo]")
+      .evaluate((el) => getComputedStyle(el).clipPath),
+  ).toBe("none");
+  expect(
+    await page
+      .locator("[data-real-product-photo]")
+      .evaluate((el) => getComputedStyle(el).objectFit),
+  ).toBe("contain");
+  await expect(page.locator(".product-photo-outgoing")).toHaveCount(0);
+  await expect(page.locator(".studio-word")).toHaveText("Chaleira");
+  await page.locator("[data-studio-motion]").click();
+  for (const i of [2, 3, 0, 2])
+    await page.locator(`[data-product="${i}"]`).click();
+  await expect(page.locator(".product-studio")).toHaveAttribute(
+    "data-active-product",
+    "2",
+  );
+  await expect(page.locator("[data-real-product-photo]")).toHaveAttribute(
+    "src",
+    "/assets/products/air-fryer.png",
+  );
+  await expect(
+    page.locator(
+      ".product-kettle-lid,.product-drawer--left,.product-drawer--right",
+    ),
+  ).toHaveCount(0);
+  const host = await page.locator(".studio-photo-host").boundingBox();
+  const copy = await page.locator(".studio-copy").boundingBox();
+  expect(host.y + host.height).toBeLessThan(copy.y + 10);
 });

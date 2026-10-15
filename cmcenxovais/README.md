@@ -34,11 +34,11 @@ O Google Sites não executa o backend Express nem o banco de dados deste projeto
 
 A abertura voltou à foto frontal da cama e da mulher, com entrada suave e movimento discreto. Após o carregamento da foto, a página aguarda cinco segundos visíveis e desce para a vitrine. Rolar, tocar, usar o teclado ou clicar em um controle cancela essa descida. Entradas por âncora e páginas já roladas preservam a posição do visitante.
 
-A vitrine alterna a cada cinco segundos entre as quatro fotos reais em `public/assets/products/`: taça, chaleira, air fryer e almofadas. Há seleção direta, anterior, próximo e pausa da apresentação completa. As fotos da taça e das almofadas recebem um giro suave em perspectiva; recortes da própria foto animam as gavetas da air fryer e a tampa da chaleira, sem água. A montagem é uma edição fotográfica: o giro não revela lados não fotografados nem representa uma réplica 3D. O temporizador só funciona com a vitrine visível e a aba ativa. A preferência por movimento reduzido desliga as animações e inicia a troca automática pausada. Os módulos e a dependência de Three.js foram removidos.
+A vitrine alterna a cada cinco segundos entre as quatro fotos reais em `public/assets/products/`: taça, chaleira, air fryer e almofadas. Há seleção direta, anterior, próximo e pausa da apresentação completa. A vitrine usa o produto inteiro em tamanho grande, título ao fundo e transição de aproximadamente um segundo com deslocamento suave, rotação leve no plano e sobreposição das fotos. Não há recortes de tampa ou gavetas, deformação em perspectiva nem criação de lados não fotografados. O temporizador só funciona com a vitrine visível e a aba ativa. A preferência por movimento reduzido desliga as animações e inicia a troca automática pausada. Os módulos e a dependência de Three.js foram removidos.
 
 - `intro-presentation.js`: apresentação inicial, pausa e descida automática.
 - `showcase.js`: carrossel de produtos e links de consulta.
-- `product-motion.js` e `product-motion.css`: recortes e movimentos das fotografias originais.
+- `product-motion.js` e `product-motion.css`: transições das fotografias inteiras e originais.
 - `presentation.css` e `showcase.css`: apresentação responsiva das fotos.
 
 O backend, os formulários, a autenticação, as páginas administrativas e o conteúdo comercial após a vitrine permanecem preservados. A vitrine não altera preços nem cria itens comerciais.

@@ -1,31 +1,43 @@
-const types = ["glass", "kettle", "fryer", "cushions"];
-const ratios = ["599 / 1200", "1076 / 1200", "1", "562 / 444"];
-export function mountPhotoMotion(host, photo, index) {
-  const scene = document.createElement("div");
-  scene.className = "product-photo-scene product-photo-scene--" + types[index];
-  const frame = document.createElement("div");
-  frame.className = "product-photo-scene__frame";
-  frame.style.setProperty("--photo-ratio", ratios[index]);
-  frame.style.setProperty(
-    "--photo-factor",
-    [599 / 1200, 1076 / 1200, 1, 562 / 444][index],
+/** Whole original photographs: never cut, stretch or synthesize product parts. */
+export function mountPhotoMotion(host, photo, previousSource, animate) {
+  host
+    .getAnimations({ subtree: true })
+    .forEach((animation) => animation.cancel());
+  const outgoing = previousSource ? document.createElement("img") : null;
+  if (outgoing) {
+    outgoing.src = previousSource;
+    outgoing.alt = "";
+    outgoing.className = "product-photo-outgoing";
+    outgoing.setAttribute("aria-hidden", "true");
+  }
+  photo.className = "product-photo-current";
+  photo.draggable = false;
+  host.replaceChildren(...(outgoing ? [outgoing, photo] : [photo]));
+  if (!animate) {
+    outgoing?.remove();
+    return;
+  }
+  const timing = {
+    duration: 1050,
+    easing: "cubic-bezier(.22,.68,.2,1)",
+    fill: "both",
+  };
+  if (outgoing) {
+    const exit = outgoing.animate(
+      [
+        { opacity: 1, transform: "translateX(0) rotate(0) scale(1)" },
+        { opacity: 0, transform: "translateX(-90px) rotate(-5deg) scale(.94)" },
+      ],
+      timing,
+    );
+    exit.finished.then(() => outgoing.remove()).catch(() => outgoing.remove());
+  }
+  const entrance = photo.animate(
+    [
+      { opacity: 0, transform: "translateX(100px) rotate(5deg) scale(.96)" },
+      { opacity: 1, transform: "translateX(0) rotate(0) scale(1)" },
+    ],
+    timing,
   );
-  scene.append(frame);
-  photo.className = index === 2 ? "product-fryer-body" : "";
-  frame.append(photo);
-  function layer(className) {
-    const img = document.createElement("img");
-    img.src = photo.src;
-    img.alt = "";
-    img.draggable = false;
-    img.setAttribute("aria-hidden", "true");
-    img.className = className;
-    frame.append(img);
-  }
-  if (index === 1) layer("product-kettle-lid");
-  if (index === 2) {
-    layer("product-drawer--left");
-    layer("product-drawer--right");
-  }
-  host.replaceChildren(scene);
+  entrance.finished.then(() => entrance.cancel()).catch(() => {});
 }

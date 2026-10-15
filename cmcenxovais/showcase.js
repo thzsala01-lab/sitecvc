@@ -65,6 +65,7 @@ const photos = [
 ];
 let selected = 0,
   timer,
+  request = 0,
   visible = false;
 const root = document.querySelector(".product-studio");
 const photo = root.querySelector("[data-real-product-photo]");
@@ -74,17 +75,55 @@ let paused = reduced.matches;
 function schedule() {
   clearTimeout(timer);
   root.dataset.productVisible = String(visible && !document.hidden);
+  root
+    .querySelector(".studio-photo-host")
+    .getAnimations({ subtree: true })
+    .forEach((a) => {
+      if (paused || !visible || document.hidden) a.pause();
+      else a.play();
+    });
   if (!paused && visible && !document.hidden)
     timer = setTimeout(() => select(selected + 1), 5000);
 }
-function select(index, user = false) {
-  selected = (index + products.length) % products.length;
+async function select(index, user = false) {
+  const ticket = ++request;
+  clearTimeout(timer);
+  const next = (index + products.length) % products.length;
+  const source = "/assets/products/" + photos[next].file;
+  const preload = new Image();
+  preload.src = source;
+  try {
+    await preload.decode();
+  } catch {
+    if (ticket === request) {
+      root.querySelector("[data-studio-hint]").textContent =
+        "Não foi possível carregar a foto. Escolha outro produto ou tente novamente.";
+      schedule();
+    }
+    return;
+  }
+  if (ticket !== request) return;
+  const previousSource = photo.getAttribute("src");
+  const changed = root.dataset.activeProduct !== undefined && next !== selected;
+  selected = next;
   const p = products[selected],
     real = photos[selected];
   root.dataset.activeProduct = String(selected);
   root.style.setProperty("--studio-bg", p.bg);
   root.style.setProperty("--studio-ink", p.ink);
   root.querySelector(".studio-word").textContent = p.name;
+  root
+    .querySelector(".studio-word")
+    .getAnimations()
+    .forEach((a) => a.cancel());
+  if (changed && !reduced.matches)
+    root.querySelector(".studio-word").animate(
+      [
+        { opacity: 0, transform: "translate(-45%, -50%)" },
+        { opacity: 1, transform: "translate(-50%, -50%)" },
+      ],
+      { duration: 1000, easing: "cubic-bezier(.22,.68,.2,1)" },
+    );
   root.querySelector("[data-studio-category]").textContent = p.category;
   const copy = root.querySelector(".studio-copy");
   copy.setAttribute("aria-live", user ? "polite" : "off");
@@ -93,7 +132,14 @@ function select(index, user = false) {
     real.description;
   photo.alt = real.alt;
   photo.src = "/assets/products/" + real.file;
-  mountPhotoMotion(root.querySelector(".studio-photo-host"), photo, selected);
+  mountPhotoMotion(
+    root.querySelector(".studio-photo-host"),
+    photo,
+    changed ? previousSource : null,
+    changed && !reduced.matches,
+  );
+  root.querySelector("[data-studio-hint]").textContent =
+    "Foto original · detalhes reais do produto";
   const cta = root.querySelector("[data-studio-cta]");
   cta.firstChild.textContent = p.cta + " ";
   cta.href =
@@ -104,7 +150,7 @@ function select(index, user = false) {
   root
     .querySelectorAll("[data-product]")
     .forEach((b, i) => b.setAttribute("aria-pressed", String(i === selected)));
-  if (!reduced.matches) {
+  if (changed && !reduced.matches) {
     copy.getAnimations().forEach((a) => a.cancel());
     copy.animate(
       [
@@ -153,7 +199,7 @@ photo.addEventListener("error", () => {
   root.querySelector("[data-studio-hint]").textContent =
     "Não foi possível carregar a foto. Tente recarregar a página.";
 });
-photos.slice(1).forEach((p) => {
+photos.forEach((p) => {
   const img = new Image();
   img.src = "/assets/products/" + p.file;
 });
