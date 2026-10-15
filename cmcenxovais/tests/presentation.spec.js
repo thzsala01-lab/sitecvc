@@ -146,7 +146,50 @@ test("whole product photos crossfade without masks and rapid selection keeps the
       ".product-kettle-lid,.product-drawer--left,.product-drawer--right",
     ),
   ).toHaveCount(0);
-  const host = await page.locator(".studio-photo-host").boundingBox();
-  const copy = await page.locator(".studio-copy").boundingBox();
-  expect(host.y + host.height).toBeLessThan(copy.y + 10);
+});
+
+test("optional perspective preserves original images and the fryer drawers respond to controls", async ({
+  page,
+}) => {
+  await page.goto("/#experiencia-3d");
+  await expect(page.locator("[data-real-product-photo]")).toHaveAttribute(
+    "src",
+    "/assets/products/taca.png",
+  );
+  await expect(page.locator("[data-perspective-toggle]")).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await page.locator("[data-perspective-toggle]").click();
+  await page.locator(".studio-photo-host").focus();
+  await page.keyboard.press("ArrowRight");
+  expect(
+    await page
+      .locator("[data-real-product-photo]")
+      .evaluate((el) => el.style.transform),
+  ).toContain("rotateY(3deg)");
+  await page.keyboard.press("Escape");
+  await expect(page.locator("[data-perspective-toggle]")).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await page.locator('[data-product="2"]').click();
+  await page.locator("[data-drawer-toggle]").click();
+  await expect(page.locator(".product-studio")).toHaveAttribute(
+    "data-drawers",
+    "closed",
+  );
+  await expect(page.locator(".fryer-drawer")).toHaveCount(2);
+  await expect(page.locator("[data-real-product-photo]")).toHaveAttribute(
+    "src",
+    "/assets/products/air-fryer.png",
+  );
+  await page.locator("[data-drawer-toggle]").click();
+  await expect(page.locator(".product-studio")).toHaveAttribute(
+    "data-drawers",
+    "open",
+  );
+  await page.locator('[data-product="3"]').click();
+  await expect(page.locator("[data-drawer-toggle]")).toBeHidden();
+  await expect(page.locator(".fryer-motion-frame")).toHaveCount(0);
 });

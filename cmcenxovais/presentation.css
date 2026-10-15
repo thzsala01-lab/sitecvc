@@ -170,23 +170,199 @@
     transition: none;
   }
 }
-@media(min-width:901px) {
- .studio-stage {height:780px;}
- .studio-photo-host {inset:20px 16% 235px;}
- .studio-copy {width:43%;max-width:520px;}
+@media (min-width: 901px) {
+  .studio-stage {
+    height: 780px;
+  }
+  .studio-photo-host {
+    inset: 20px 16% 235px;
+  }
+  .studio-copy {
+    width: 43%;
+    max-width: 520px;
+  }
 }
 
 /* A dedicated title row keeps every product name clear of the photograph. */
-@media(min-width:901px) {
- .studio-stage {height:880px;}
- .studio-photo-host {inset:120px 16% 235px;}
+@media (min-width: 901px) {
+  .studio-stage {
+    height: 880px;
+  }
+  .studio-photo-host {
+    inset: 120px 16% 235px;
+  }
 }
-@media(min-width:701px) and (max-width:900px) {
- .studio-stage {height:760px;}
- .studio-photo-host {inset:115px 12% 215px;}
+@media (min-width: 701px) and (max-width: 900px) {
+  .studio-stage {
+    height: 760px;
+  }
+  .studio-photo-host {
+    inset: 115px 12% 215px;
+  }
 }
-@media(max-width:700px) {
- .studio-stage {height:805px;min-height:805px;}
- .studio-photo-host {inset:85px 7% 265px;}
+@media (max-width: 700px) {
+  .studio-stage {
+    height: 805px;
+    min-height: 805px;
+  }
+  .studio-photo-host {
+    inset: 85px 7% 265px;
+  }
 }
-.studio-copy h2 {text-wrap:balance;max-width:26ch;line-height:1.25;}
+.studio-copy h2 {
+  text-wrap: balance;
+  max-width: 26ch;
+  line-height: 1.25;
+}
+/* Condensed black display type follows the supplied lettering reference. */
+@font-face {
+  font-family: Anton;
+  src: url("/assets/fonts/Anton-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+.studio-word {
+  font-family: Anton, "Arial Narrow", Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  color: #080808;
+  font-size: clamp(100px, 19vw, 300px);
+  top: 34%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+  z-index: 1;
+}
+@media (min-width: 901px) {
+  .studio-photo-host {
+    inset: 35px 16% 235px;
+  }
+}
+@media (min-width: 701px) and (max-width: 900px) {
+  .studio-word {
+    font-size: 19vw;
+  }
+  .studio-photo-host {
+    inset: 30px 12% 215px;
+  }
+}
+@media (max-width: 700px) {
+  .studio-word {
+    top: 29%;
+    font-size: 19vw;
+  }
+  .studio-photo-host {
+    inset: 20px 7% 265px;
+  }
+}
+.studio-interactions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 5%;
+  padding: 0 48px 25px 0;
+}
+.studio-interactions button {
+  border: 1px solid currentColor;
+  border-radius: 30px;
+  background: #ffffff60;
+  padding: 12px 18px;
+  font-size: 11px;
+}
+.studio-interactions button[aria-pressed="true"] {
+  background: var(--studio-ink);
+  color: white;
+}
+.studio-interactions [hidden] {
+  display: none !important;
+}
+.studio-interactions p {
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 0;
+  flex-basis: 100%;
+}
+.studio-interactions p:empty {
+  display: none;
+}
+.studio-photo-host {
+  container-type: size;
+}
+.product-studio[data-perspective="true"] .studio-photo-host {
+  cursor: grab;
+  touch-action: pan-y;
+  outline-offset: 4px;
+}
+.product-studio[data-perspective="true"] .studio-photo-host:active {
+  cursor: grabbing;
+}
+.fryer-motion-frame {
+  position: absolute;
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+}
+.fryer-motion-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.fryer-motion-frame [data-real-product-photo] {
+  z-index: 3;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    65.56% 100%,
+    65.56% 75.89%,
+    69% 72.22%,
+    69.22% 55.78%,
+    47.67% 48.89%,
+    28.89% 42.44%,
+    0 38.89%
+  );
+}
+.fryer-drawer {
+  filter: none !important;
+  transition: transform 1.25s cubic-bezier(0.45, 0, 0.2, 1);
+}
+.fryer-drawer--left {
+  z-index: 1;
+  clip-path: polygon(
+    0 38.89%,
+    28.89% 42.44%,
+    47.67% 48.89%,
+    36.44% 56.11%,
+    32% 61.11%,
+    30.78% 71.67%,
+    30.78% 100%,
+    0 100%
+  );
+}
+.fryer-drawer--right {
+  z-index: 2;
+  clip-path: polygon(
+    47.67% 48.89%,
+    69.22% 55.78%,
+    69% 72.22%,
+    65.56% 75.89%,
+    65.56% 100%,
+    30.78% 100%,
+    30.78% 71.67%,
+    32% 61.11%,
+    36.44% 56.11%
+  );
+}
+.product-studio[data-drawers="closed"] .fryer-drawer {
+  transform: translate(14%, -14%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fryer-drawer {
+    transition: none;
+  }
+}

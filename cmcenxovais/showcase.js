@@ -1,4 +1,5 @@
 import { mountPhotoMotion } from "./product-motion.js";
+import { initProductInteraction } from "./product-interaction.js";
 const products = [
   {
     name: "Taça",
@@ -72,6 +73,7 @@ const photo = root.querySelector("[data-real-product-photo]");
 const pause = root.querySelector("[data-studio-motion]");
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 let paused = reduced.matches;
+const interaction = initProductInteraction(root, schedule);
 function schedule() {
   clearTimeout(timer);
   root.dataset.productVisible = String(visible && !document.hidden);
@@ -82,7 +84,13 @@ function schedule() {
       if (paused || !visible || document.hidden) a.pause();
       else a.play();
     });
-  if (!paused && visible && !document.hidden)
+  if (
+    !paused &&
+    visible &&
+    !document.hidden &&
+    root.dataset.perspective !== "true" &&
+    !root.dataset.drawers
+  )
     timer = setTimeout(() => select(selected + 1), 5000);
 }
 async function select(index, user = false) {
@@ -119,8 +127,8 @@ async function select(index, user = false) {
   if (changed && !reduced.matches)
     root.querySelector(".studio-word").animate(
       [
-        { opacity: 0, transform: "translateX(-45%)" },
-        { opacity: 1, transform: "translateX(-50%)" },
+        { opacity: 0, transform: "translate(-45%, -50%)" },
+        { opacity: 1, transform: "translate(-50%, -50%)" },
       ],
       { duration: 1000, easing: "cubic-bezier(.22,.68,.2,1)" },
     );
@@ -138,6 +146,7 @@ async function select(index, user = false) {
     changed ? previousSource : null,
     changed && !reduced.matches,
   );
+  interaction.reset(selected);
   root.querySelector("[data-studio-hint]").textContent =
     "Foto original · detalhes reais do produto";
   const cta = root.querySelector("[data-studio-cta]");
