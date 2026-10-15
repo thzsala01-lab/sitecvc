@@ -63,9 +63,10 @@
 
     <main id="conteudo">
       <section class="hero" id="inicio" aria-labelledby="hero-title">
-        <img class="hero__mobile-image" src="/assets/cmc-hero-capa-quarto.png" alt="Quarto brasileiro iluminado com cama coberta por colcha vermelha e mulher finalizando a arrumação" fetchpriority="high" />
-        <div class="hero__image" role="img" aria-label="Quarto brasileiro iluminado com cama coberta por colcha vermelha, janela ampla, móveis de madeira e mulher finalizando a arrumação"></div>
+        <img class="hero__mobile-image" src="/assets/cmc-hero-cama-frontal.png" alt="Cama alinhada de frente com colcha vermelha e mulher em pé ao lado" fetchpriority="high" />
+        <div class="hero__image" role="img" aria-label="Mulher em pé ao lado da cama alinhada de frente, com colcha vermelha e luz natural"></div>
         <div class="hero__veil"></div>
+        <button class="hero-motion" type="button" data-hero-motion aria-pressed="false">Pausar movimento</button>
         <div class="shell hero__inner">
           <div class="hero__content" data-reveal>
             <p class="eyebrow eyebrow--light">CMC Enxovais <span aria-hidden="true">·</span> há mais de 20 anos</p>
@@ -78,7 +79,7 @@
           </div>
 
         </div>
-        <a class="scroll-cue" href="#produtos" aria-label="Ir para os produtos"><span></span>Conheça a CMC</a>
+        <a class="scroll-cue" href="#experiencia-3d" aria-label="Descer para explorar os produtos"><span></span>Desça para descobrir</a>
       </section>
 
       <section class="confidence-strip" aria-label="Diferenciais da CMC">
@@ -94,15 +95,15 @@
           <div class="studio-word" aria-hidden="true">Taça</div>
           <div class="studio-orbit studio-orbit--one" aria-hidden="true"></div>
           <div class="studio-orbit studio-orbit--two" aria-hidden="true"></div>
-          <div class="studio-canvas" role="img" aria-label="Representação 3D ilustrativa de uma taça" tabindex="0"><span class="studio-loading">Preparando uma nova perspectiva…</span></div>
+          <div class="studio-canvas" role="img" aria-label="Foto da taça âmbar. Use as setas para explorar a perspectiva." tabindex="0"><img class="studio-photo-fallback" src="/assets/products/taca.png" alt="Taça âmbar facetada" loading="lazy" /></div>
           <div class="studio-copy" aria-live="polite" aria-atomic="true">
             <p class="studio-eyebrow" data-studio-category>Mesa & encontros</p>
             <h2 id="studio-title">Um brinde aos <br>bons momentos.</h2>
             <p data-studio-description>Pequenos detalhes que transformam a arte de receber.</p>
             <a class="studio-cta" href="#contato" data-studio-cta>Consultar taças <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="studio-caption"><span class="studio-caption-dot"></span><span data-studio-hint>Arraste para girar · use as setas ao focar o objeto</span></div>
-          <span class="studio-model-note">Representação ilustrativa</span>
+          <div class="studio-caption"><span class="studio-caption-dot"></span><span data-studio-hint>Mova o cursor ou arraste para explorar os detalhes</span></div>
+          <span class="studio-model-note">Fotos dos nossos produtos</span>
         </div>
         <div class="studio-bottom">
           <div class="studio-products" role="group" aria-label="Escolher produto">
@@ -117,7 +118,7 @@
             <button type="button" data-studio-next aria-label="Próximo produto">→</button>
           </div>
         </div>
-        <noscript><p class="studio-noscript">Ative o JavaScript para explorar as apresentações 3D de taças, chaleiras, air fryers e almofadas.</p></noscript>
+        <noscript><p class="studio-noscript">Ative o JavaScript para explorar as animações das fotos de taças, chaleiras, air fryers e almofadas.</p></noscript>
       </section>
 
       <section class="categories section" id="produtos" aria-labelledby="products-title">
@@ -285,5 +286,6 @@
     </a>
     <script type="module" src="/main.js"></script>
     <script type="module" src="/showcase.js"></script>
+    <script type="module" src="/hero-depth.js"></script>
   </body>
 </html>

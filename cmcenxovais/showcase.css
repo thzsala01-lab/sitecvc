@@ -9,3 +9,25 @@
 @media(max-width:900px){.studio-bottom{flex-wrap:wrap;justify-content:center}.studio-copy{max-width:240px}.studio-copy h2{font-size:30px}.studio-model-note{bottom:12px}.studio-caption{left:65%;font-size:9px}.studio-edition{display:none}.studio-products button{padding:12px 16px}}
 @media(max-width:600px){.studio-top{padding:23px 0}.studio-stage{height:720px;min-height:720px;max-height:none}.studio-word{top:4%;font-size:25vw}.studio-canvas{inset:0 0 230px}.studio-copy{top:auto;bottom:42px;left:7%;max-width:86%;pointer-events:auto}.studio-copy h2{font-size:29px;margin-bottom:10px}.studio-copy h2 br{display:none}.studio-copy>p:not(.studio-eyebrow){max-width:300px;font-size:12px;margin-bottom:4px}.studio-copy .studio-eyebrow{margin-bottom:12px}.studio-caption{left:50%;bottom:252px;font-size:9px}.studio-model-note{bottom:20px;right:7%}.studio-products{width:100%;justify-content:space-between;gap:2px}.studio-products button{gap:5px;padding:11px 9px;font-size:10px}.studio-bottom{gap:12px;padding:18px 0}.studio-controls{width:100%;justify-content:space-between}.studio-orbit--one{left:82%;top:11%;width:65px;height:65px}.studio-orbit--two{left:10%;top:48%}}
 @media(prefers-reduced-motion:reduce){.product-studio,.studio-products button{transition:none}.studio-copy.is-entering{animation:none}}
+
+/* Photographic product presentation. */
+#experiencia-3d { scroll-margin-top: 84px; }
+.studio-canvas { display: flex; align-items: center; justify-content: center; perspective: 1100px; }
+.studio-photo-fallback { width: 40%; max-height: 85%; object-fit: contain; }
+.studio-word { top: 4%; font-size: clamp(110px,19vw,285px); color: #ffffff80; }
+.studio-orbit { opacity: .4; }
+.studio-canvas .photo-scene { width: min(100%,620px); flex-shrink: 0; }
+.studio-caption { left: 65%; bottom: 25px; }
+.studio-model-note { bottom: 8px; opacity: .65; }
+.studio-controls { padding-right: 48px; }
+@media(max-width:600px) {
+ .studio-canvas { inset: 0 0 240px; }
+ .studio-canvas .photo-scene { width: min(100%,470px); }
+ .studio-caption { left: 50%; bottom: 258px; font-size: 9px; }
+ .studio-model-note { bottom: 20px; }
+ .studio-controls { padding-right: 0; }
+ .studio-word { font-size: 24vw; }
+}
+.studio-arriving .studio-top { animation: studio-arrival .8s ease-out both; }
+@keyframes studio-arrival { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@media(prefers-reduced-motion:reduce) { .studio-arriving .studio-top { animation: none; } }

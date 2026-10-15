@@ -30,16 +30,16 @@ Para compilar: `pnpm run build`. Para iniciar em produção: `set -a; . ./.env; 
 
 O Google Sites não executa o backend Express nem o banco de dados deste projeto. Para usar o site completo nesse serviço, é necessário hospedar o projeto com Node.js/MySQL e incorporar a URL pública por iframe; importar somente `index.html` não habilita login, formulários ou painel administrativo.
 
-## Vitrine interativa 3D
+## Vitrine com fotos reais e efeito de profundidade
 
-A página inicial inclui uma apresentação de taça, chaleira, air fryer e almofada, inspirada no vídeo de referência fornecido: tipografia grande, fundos coloridos, produtos flutuantes e troca de cenas. Os objetos são modelos ilustrativos criados com Three.js, não réplicas de produtos do catálogo.
+A abertura usa uma imagem editada para mostrar a mulher em pé e a cama frontal, com movimento suave, controle de pausa e link para descer até os produtos. A vitrine utiliza os quatro PNGs originais enviados pelo cliente, preservados em `public/assets/products/`: taça âmbar, chaleira BE.SMART, air fryer BE.SMART de duas gavetas e almofadas esportivas.
 
-- Clique nos nomes ou nas setas para trocar o produto. A apresentação avança automaticamente a cada 7 segundos quando não está pausada nem em interação.
-- Arraste o objeto ou foque a área 3D e use as setas do teclado para girar.
-- O botão de pausa interrompe o movimento e a troca automática. A preferência de movimento reduzido é respeitada.
-- A renderização só começa perto da seção e é suspensa fora dela ou com a aba oculta. Sem WebGL, o catálogo textual e os links de consulta continuam disponíveis.
-- `showcase.js` contém os modelos e comportamentos; `showcase.css` contém o layout responsivo. Não é necessário baixar modelos ou usar uma API 3D.
+- A taça recebe luz e movimento suave; as almofadas flutuam levemente.
+- As gavetas da air fryer são isoladas em camadas da foto original por máscaras CSS e deslizam para abrir e fechar.
+- A chaleira inclina a própria foto em sincronia com o fluxo de água e o preenchimento da taça.
+- As cenas usam fotos e perspectiva CSS; não oferecem rotação de 360 graus nem substituem os produtos por modelos inventados.
+- Clique nos nomes ou nas setas para mudar de produto. A troca automática ocorre a cada 11 segundos sem interação.
+- A pausa, a preferência de movimento reduzido e a visibilidade da aba/seção controlam as animações. No celular, arrastar horizontalmente ajusta a perspectiva e a rolagem vertical continua livre.
+- `showcase.js` controla a vitrine; `product-scenes.js` e `product-scenes.css` definem as cenas; `hero-depth.js` controla a abertura. Não há dependência de WebGL ou API externa para apresentar os produtos.
 
-Para trabalhar apenas na interface, sem banco de dados: `pnpm exec vite --host 0.0.0.0`. Esse modo permite avaliar a vitrine, mas não fornece a API de login, cadastro ou contatos; para essas funcionalidades, use o servidor e o MySQL descritos acima. A compilação segue sendo `pnpm run build`.
-
-Validação desta alteração: build Vite e testes em Chromium de renderização dos quatro modelos, navegação, teclado, arraste, pausa, troca automática, layout móvel, movimento reduzido e fallback sem WebGL. A integração com MySQL e e-mail não foi validada nesta alteração visual.
+Para trabalhar apenas na interface, sem banco de dados: `pnpm exec vite --host 0.0.0.0`. Esse modo não fornece a API de login, cadastro ou contatos; para essas funcionalidades, use o servidor e o MySQL descritos acima. A compilação segue sendo `pnpm run build`.

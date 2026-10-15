@@ -1,0 +1,35 @@
+/* Photo scenes use the supplied products, with perspective confined to a subtle tilt.
+   Add data-motion="paused" to the ancestor to freeze all scene animation. */
+.photo-scene{position:relative;width:min(100%,650px);aspect-ratio:1;transform-style:preserve-3d;transform:perspective(1100px) rotateX(var(--photo-x,0deg)) rotateY(var(--photo-y,0deg));transition:transform .25s ease;isolation:isolate;pointer-events:none}
+.photo-scene img{position:absolute;object-fit:contain;max-width:none;user-select:none;filter:drop-shadow(0 16px 12px #1e171c24)}
+.photo-scene__shadow{position:absolute;left:22%;right:16%;bottom:8%;height:5%;background:#352b3038;border-radius:50%;filter:blur(15px);transform:translateZ(-20px)}
+.photo-scene__glass{width:42%;height:83%;left:29%;top:5%;animation:photo-float 6s ease-in-out infinite}
+.photo-scene__glass-glint{position:absolute;left:29%;top:5%;width:42%;height:83%;background:linear-gradient(110deg,transparent 35%,#fff9 48%,transparent 60%);mask:url('/assets/products/taca.png') center/contain no-repeat;opacity:0;animation:photo-glint 6s ease-in-out infinite}
+.photo-scene__cushions{width:80%;height:77%;left:10%;top:8%;animation:photo-cushion-float 7s ease-in-out infinite}
+.photo-scene__fryer-body,.photo-scene__drawer{inset:0;width:100%;height:100%}
+.photo-scene__fryer-body{z-index:3}
+.photo-scene__drawer--left{animation:photo-drawer-left 7s cubic-bezier(.45,0,.25,1) infinite;z-index:1}
+.photo-scene__drawer--right{animation:photo-drawer-right 7s cubic-bezier(.45,0,.25,1) infinite;z-index:2}
+.photo-scene__kettle{width:60%;height:70%;left:35%;top:22%;transform-origin:7% 16.5%;animation:photo-pour 8s cubic-bezier(.45,0,.25,1) infinite;z-index:3}
+.photo-scene__receiving-glass{width:24%;height:39%;left:12%;top:57%;z-index:1}
+.photo-scene__water-in-glass{position:absolute;width:19.5%;height:20.8%;left:14.25%;top:58.7%;clip-path:polygon(7% 0,94% 0,89% 47%,75% 77%,50% 100%,26% 77%,10% 47%);z-index:2;overflow:hidden}
+.photo-scene__water-in-glass::after{content:'';position:absolute;inset:0;background:linear-gradient(#e2f9ff99,#8cb8d84d);border-top:2px solid #ecfcffb3;border-radius:30% 30% 0 0 / 5% 5% 0 0;transform:translateY(100%);animation:photo-fill 8s ease-in-out infinite}
+.photo-scene__water{position:absolute;inset:0;width:100%;height:100%;z-index:2;stroke-linecap:round;opacity:0;animation:photo-water 8s linear infinite}
+.photo-scene__water path{fill:none;vector-effect:none}
+.photo-scene__stream-edge{stroke:#94b7c980;stroke-width:1.35}
+.photo-scene__stream-shine{stroke:#f0fbffe6;stroke-width:.55;stroke-dasharray:3 .5;animation:photo-water-flow .4s linear infinite}
+[data-motion=paused] .photo-scene *,[data-motion=paused] .photo-scene *::after{animation-play-state:paused!important}
+@keyframes photo-float{0%,100%{transform:translateY(0) rotateY(-3deg)}50%{transform:translateY(-10px) rotateY(3deg)}}
+@keyframes photo-glint{0%,65%,100%{opacity:0}76%{opacity:.35}85%{opacity:0}}
+@keyframes photo-cushion-float{0%,100%{transform:translateY(0) rotateZ(-1deg)}50%{transform:translateY(-10px) rotateZ(1deg)}}
+@keyframes photo-pour{0%,12%,85%,100%{transform:rotate(0)}30%,65%{transform:rotate(-28deg)}}
+@keyframes photo-water{0%,29%,68%,100%{opacity:0}33%,62%{opacity:1}}
+@keyframes photo-water-flow{to{stroke-dashoffset:-7}}
+@keyframes photo-fill{0%,30%{transform:translateY(100%)}65%,88%{transform:translateY(45%)}100%{transform:translateY(100%)}}
+@media(prefers-reduced-motion:reduce){.photo-scene{transition:none}[data-motion=paused] .photo-scene *,[data-motion=paused] .photo-scene *::after{animation:none!important}[data-motion=paused] .photo-scene__drawer{transform:none}[data-motion=paused] .photo-scene__water,[data-motion=paused] .photo-scene__water-in-glass{display:none}}
+/* Complementary masks retain every original pixel at the fully open position. */
+.photo-scene__fryer-body { clip-path: polygon(0 0,100% 0,100% 100%,65.56% 100%,65.56% 75.89%,69% 72.22%,69.22% 55.78%,47.67% 48.89%,28.89% 42.44%,0 38.89%); filter: none!important; }
+.photo-scene__drawer--left { clip-path: polygon(0 38.89%,28.89% 42.44%,47.67% 48.89%,36.44% 56.11%,32% 61.11%,30.78% 71.67%,30.78% 100%,0 100%); filter: none!important; }
+.photo-scene__drawer--right { clip-path: polygon(47.67% 48.89%,69.22% 55.78%,69% 72.22%,65.56% 75.89%,65.56% 100%,30.78% 100%,30.78% 71.67%,32% 61.11%,36.44% 56.11%); filter: none!important; }
+@keyframes photo-drawer-left{0%,14%,90%,100%{transform:translate(14%,-14%)}35%,60%{transform:translate(0,0)}}
+@keyframes photo-drawer-right{0%,20%,94%,100%{transform:translate(14%,-14%)}42%,67%{transform:translate(0,0)}}

@@ -63,7 +63,7 @@ svg path { vector-effect: non-scaling-stroke; }
 
 .hero { position: relative; display: flex; min-height: clamp(650px, calc(100vh - 37px), 780px); padding-top: 123px; color: var(--ink); overflow: hidden; isolation: isolate; background: #eee8db; }
 .hero__mobile-image { display: none; }
-.hero__image { position: absolute; inset: -1%; z-index: -3; background-image: url("/assets/cmc-hero-capa-quarto.png"); background-size: cover; background-repeat: no-repeat; background-position: center; background-color: #eee8db; filter: saturate(1.04) contrast(1.015); }
+.hero__image { position: absolute; inset: -1%; z-index: -3; background-image: url("/assets/cmc-hero-cama-frontal.png"); background-size: cover; background-repeat: no-repeat; background-position: center; background-color: #eee8db; filter: saturate(1.04) contrast(1.015); }
 .hero__video { display: none; }
 .hero__veil { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(246,242,233,.46) 0%, rgba(246,242,233,.32) 25%, rgba(246,242,233,.12) 41%, rgba(246,242,233,.015) 58%, transparent 100%), linear-gradient(180deg, rgba(255,253,250,.02), rgba(255,250,240,0) 63%, rgba(87,36,27,.12)); }
 .hero::after { content: ""; position: absolute; z-index: -1; inset: -20%; pointer-events: none; background: radial-gradient(circle at 70% 19%, rgba(255,247,219,.34), transparent 25%), radial-gradient(circle at 82% 57%, rgba(173,31,53,.1), transparent 19%); mix-blend-mode: screen; }
@@ -457,3 +457,38 @@ address { color: var(--muted); font-size: 13px; font-style: normal; line-height:
   h2 { font-size: 33px; }
   .category-copy strong { font-size: 17px; }
 }
+
+
+/* A frontal photograph keeps the bed level; depth uses zoom and translation only. */
+.hero { --hero-x: 0px; --hero-y: 0px; }
+.hero__image { background-position: center center; transform-origin: center; animation: hero-breathe 12s ease-in-out infinite; will-change: transform; }
+.hero__mobile-image { transform-origin: center; animation: hero-breathe 12s ease-in-out infinite; }
+.hero-motion { position: absolute; z-index: 4; right: 24px; bottom: 28px; border: 1px solid #ffffffa6; border-radius: 30px; background: #fffdfae6; color: #4f3430; padding: 10px 16px; font-size: 10px; box-shadow: 0 3px 12px #33221c12; }
+.hero[data-motion="paused"] .hero__image,.hero[data-motion="paused"] .hero__mobile-image { animation-play-state: paused; will-change: auto; }
+@keyframes hero-breathe {
+  0%,100% { transform: translate3d(var(--hero-x),var(--hero-y),0) scale(1.012); }
+  50% { transform: translate3d(var(--hero-x),var(--hero-y),0) scale(1.025); }
+}
+@media (max-width: 780px) {
+  .hero-motion { bottom: 22px; right: 16px; font-size: 9px; padding: 8px 12px; }
+  .hero__mobile-image { animation-duration: 14s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__image,.hero__mobile-image { animation: none!important; transform: none!important; will-change: auto; }
+}
+
+/* Keep the upright woman and the full front of the bed clear of the copy. */
+@media(min-width:781px) {
+ .hero__image { inset: 100px -1% 0 22%; background-size: contain; background-repeat: no-repeat; background-color: #f0e9dd; }
+ .hero__veil { background: linear-gradient(90deg,#f6f2e9 0%,#f6f2e9f5 17%,#f6f2e9a3 27%,#f6f2e900 40%); }
+ .hero__content { max-width: 310px; }
+ .hero__intro { max-width: 29ch; }
+}
+@media(min-width:781px) and (max-width:1100px) {
+ .hero__image { inset-inline-start: 25%; }
+ .hero__content { max-width: 270px; }
+ .hero h1 { font-size: 48px; }
+ .hero__intro { font-size: 14px; }
+ .hero__actions { flex-wrap: wrap; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
