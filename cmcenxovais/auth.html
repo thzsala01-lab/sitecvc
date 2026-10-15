@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7b1f31" />
+    <meta name="description" content="Acesse sua conta CMC Enxovais para consultar o catálogo e acompanhar oportunidades." />
+    <title>Área de acesso | CMC Enxovais</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/auth.css" />
+  </head>
+  <body class="auth-body">
+    <main class="auth-shell">
+      <section class="auth-card" aria-labelledby="auth-title">
+        <aside class="auth-aside">
+          <a class="auth-brand" href="/" aria-label="Voltar para o início da CMC Enxovais"><img src="/assets/cmc-logo-user.png" alt="CMC Enxovais" /></a>
+          <div class="auth-aside__content">
+            <p class="auth-kicker">Área CMC</p>
+            <h1>Mais perto do seu <em>próximo passo.</em></h1>
+            <p>Entre para consultar o catálogo, cadastrar seu interesse de revenda e acompanhar as oportunidades da CMC.</p>
+          </div>
+          <a class="auth-whatsapp" href="https://wa.me/5537988424250?text=Olá!%20Preciso%20de%20ajuda%20com%20meu%20acesso%20na%20CMC." target="_blank" rel="noreferrer">Precisa de ajuda? Fale no WhatsApp <span aria-hidden="true">↗</span></a>
+        </aside>
+
+        <section class="auth-panel" aria-live="polite">
+          <a class="auth-back" href="/">← Voltar para o site</a>
+          <div class="auth-panel__heading">
+            <p class="auth-kicker auth-kicker--dark" data-heading-kicker>Acesso CMC</p>
+            <h2 id="auth-title" data-heading-title>Que bom ver você <em>por aqui.</em></h2>
+            <p data-heading-copy>Entre com seus dados para continuar.</p>
+          </div>
+
+          <div class="auth-feedback" data-auth-feedback role="status" tabindex="-1"></div>
+
+          <form class="auth-form" id="form-login" data-auth-form="login" novalidate>
+            <label><span>E-mail</span><input name="email" type="email" autocomplete="email" required placeholder="seuemail@exemplo.com" /></label>
+            <label><span>Senha</span><input name="password" type="password" autocomplete="current-password" required placeholder="Sua senha" /></label>
+            <div class="auth-form__row"><a href="/esqueci-senha">Esqueceu sua senha?</a></div>
+            <button class="auth-button" type="submit">Entrar na minha conta <span aria-hidden="true">→</span></button>
+            <p class="auth-switch">Ainda não tem cadastro? <a href="/cadastro">Criar minha conta</a></p>
+          </form>
+
+          <form class="auth-form" id="form-register" data-auth-form="register" novalidate hidden>
+            <label><span>Nome completo</span><input name="name" type="text" autocomplete="name" required placeholder="Como podemos chamar você?" /></label>
+            <div class="auth-form__two"><label><span>E-mail</span><input name="email" type="email" autocomplete="email" required placeholder="seuemail@exemplo.com" /></label><label><span>WhatsApp <small>opcional</small></span><input name="phone" type="tel" autocomplete="tel" placeholder="(37) 99999-9999" /></label></div>
+            <label><span>CPF ou CNPJ</span><input name="documentNumber" type="text" inputmode="numeric" autocomplete="off" required placeholder="Para análise do cadastro" /><small class="auth-field-help">Usamos este dado somente para validar o seu cadastro de revenda.</small></label>
+            <label><span>Crie uma senha</span><input name="password" type="password" autocomplete="new-password" required placeholder="Mínimo de 10 caracteres" /></label>
+            <label><span>Confirme sua senha</span><input name="passwordConfirm" type="password" autocomplete="new-password" required placeholder="Digite novamente" /></label>
+            <label class="auth-consent"><input name="consent" type="checkbox" required /><span>Concordo em receber comunicações da CMC sobre meu cadastro e oportunidades.</span></label>
+            <input class="auth-honeypot" name="website" tabindex="-1" autocomplete="off" />
+            <button class="auth-button" type="submit">Criar conta e confirmar e-mail <span aria-hidden="true">→</span></button>
+            <p class="auth-switch">Já possui acesso? <a href="/login">Entrar na minha conta</a></p>
+          </form>
+
+          <form class="auth-form" id="form-forgot" data-auth-form="forgot" novalidate hidden>
+            <label><span>E-mail cadastrado</span><input name="email" type="email" autocomplete="email" required placeholder="seuemail@exemplo.com" /></label>
+            <fieldset class="auth-choice"><legend>Como prefere recuperar o acesso?</legend><label><input type="radio" name="channel" value="email" checked /><span>Receber link seguro no meu e-mail</span></label><label><input type="radio" name="channel" value="whatsapp" /><span>Falar com a equipe pelo WhatsApp</span></label></fieldset>
+            <button class="auth-button" type="submit">Continuar recuperação <span aria-hidden="true">→</span></button>
+            <p class="auth-switch"><a href="/login">Voltar ao login</a></p>
+          </form>
+
+          <form class="auth-form" id="form-reset" data-auth-form="reset" novalidate hidden>
+            <label><span>Nova senha</span><input name="password" type="password" autocomplete="new-password" required placeholder="Mínimo de 10 caracteres" /></label>
+            <label><span>Confirme a nova senha</span><input name="passwordConfirm" type="password" autocomplete="new-password" required placeholder="Digite novamente" /></label>
+            <button class="auth-button" type="submit">Salvar nova senha <span aria-hidden="true">→</span></button>
+            <p class="auth-switch"><a href="/login">Voltar ao login</a></p>
+          </form>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="/auth.js"></script>
+  </body>
+</html>

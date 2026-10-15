@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7b1f31" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Painel administrativo | CMC Enxovais</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin.css" />
+  </head>
+  <body class="admin-body">
+    <header class="admin-header">
+      <a class="admin-brand" href="/" aria-label="Voltar ao site CMC Enxovais"><img src="/assets/cmc-logo-user.png" alt="CMC Enxovais" /></a>
+      <div class="admin-account"><span data-admin-name>Carregando…</span><button type="button" data-logout>Sair</button></div>
+    </header>
+    <main class="admin-main">
+      <section class="admin-intro">
+        <div><p class="admin-kicker">Painel administrativo</p><h1>Oportunidades que <em>viram relação.</em></h1><p>Veja os contatos mais recentes e acompanhe o interesse em revenda da CMC.</p></div>
+        <a href="/" class="admin-back">Ver site público <span aria-hidden="true">↗</span></a>
+      </section>
+      <section class="admin-metrics" aria-label="Indicadores de leads">
+        <article><span>Leads recebidos</span><strong data-metric="leads_total">—</strong><small>Total de cadastros</small></article>
+        <article><span>Novos contatos</span><strong data-metric="leads_novos">—</strong><small>Aguardando atendimento</small></article>
+        <article><span>Interessados em revenda</span><strong data-metric="interessados_revenda">—</strong><small>Oportunidades comerciais</small></article>
+        <article><span>Contas verificadas</span><strong data-metric="usuarios_ativos">—</strong><small>Acesso CMC ativo</small></article>
+        <article><span>Cadastros em análise</span><strong data-metric="cadastros_pendentes">—</strong><small>CPF/CNPJ aguardando avaliação</small></article>
+      </section>
+      <section class="admin-table-section" aria-labelledby="leads-title">
+        <div class="admin-section-heading"><div><p class="admin-kicker">Acompanhamento</p><h2 id="leads-title">Leads mais <em>recentes.</em></h2></div><button type="button" data-refresh>Atualizar dados</button></div>
+        <div class="admin-feedback" data-admin-feedback role="status"></div>
+        <div class="admin-table-wrap"><table><thead><tr><th>Contato</th><th>Interesse</th><th>Localização</th><th>Recebido em</th></tr></thead><tbody data-leads-table><tr><td colspan="4">Carregando oportunidades…</td></tr></tbody></table></div>
+      </section>
+      <section class="admin-table-section" aria-labelledby="approvals-title">
+        <div class="admin-section-heading"><div><p class="admin-kicker">Aprovação de acesso</p><h2 id="approvals-title">Cadastros para <em>avaliar.</em></h2></div></div>
+        <div class="admin-table-wrap"><table><thead><tr><th>Contato</th><th>CPF/CNPJ</th><th>Recebido em</th><th>Ação</th></tr></thead><tbody data-approvals-table><tr><td colspan="4">Carregando cadastros…</td></tr></tbody></table></div>
+      </section>
+    </main>
+    <script type="module" src="/admin.js"></script>
+  </body>
+</html>
