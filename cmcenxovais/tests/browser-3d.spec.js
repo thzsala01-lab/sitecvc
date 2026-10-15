@@ -49,6 +49,9 @@ test("camera reaches a closed door, waits for the visitor, opens and enters; pro
   await page.locator(".house-actions a").click();
   const studio = page.locator(".product-studio"),
     host = page.locator(".studio-canvas");
+  await expect(studio).toHaveAttribute("data-product-view", "photo");
+  await expect(page.locator("[data-real-product-photo]")).toBeVisible();
+  await page.locator("[data-view-model]").click();
   await expect(studio).toHaveAttribute("data-viewer-state", "ready");
   await expect(host.locator("canvas")).toHaveCount(1);
   await expect(host.locator("img,video")).toHaveCount(0);
@@ -57,15 +60,17 @@ test("camera reaches a closed door, waits for the visitor, opens and enters; pro
     "kettle",
     "fryer",
     "cushion",
-    "towel",
   ].entries()) {
     await page.locator(`button[data-product="${index}"]`).click();
+    await expect(studio).toHaveAttribute("data-product-view", "photo");
+    await page.locator("[data-view-model]").click();
     await expect(studio).toHaveAttribute("data-active-model", key);
     expect(
       Number(await host.getAttribute("data-model-meshes")),
     ).toBeGreaterThan(0);
   }
   await page.locator('button[data-product="2"]').click();
+  await page.locator("[data-view-model]").click();
   await page.locator("[data-product-demo]").click();
   await expect
     .poll(async () => Number(await host.getAttribute("data-demo-time")))
@@ -116,11 +121,13 @@ test("mobile and reduced motion preserve an explicit entry gate, orbit controls 
     "entered",
   );
   await page.locator(".house-actions a").click();
+  await expect(page.locator("[data-real-product-photo]")).toBeVisible();
+  await page.locator('[data-product="2"]').click();
+  await page.locator("[data-view-model]").click();
   await expect(page.locator(".product-studio")).toHaveAttribute(
     "data-viewer-state",
     "ready",
   );
-  await page.locator('[data-product="2"]').click();
   await expect(page.locator(".product-studio")).toHaveAttribute(
     "data-demo-state",
     "paused",
@@ -153,6 +160,8 @@ test("WebGL failure leaves the site and existing catalog links accessible", asyn
     "unavailable",
   );
   await page.locator(".house-actions a").click();
+  await expect(page.locator("[data-real-product-photo]")).toBeVisible();
+  await page.locator("[data-view-model]").click();
   await expect(page.locator(".product-studio")).toHaveAttribute(
     "data-viewer-state",
     "unavailable",
@@ -160,8 +169,43 @@ test("WebGL failure leaves the site and existing catalog links accessible", asyn
   await expect(page.locator('header a[href="/login"]')).toBeAttached();
   await expect(page.locator(".viewer-unavailable")).toBeVisible();
   await page.locator('[data-product="2"]').click();
+  await expect(page.locator("[data-real-product-photo]")).toBeVisible();
   await expect(page.locator("[data-studio-cta]")).toHaveAttribute(
     "href",
     /wa.me/,
+  );
+});
+
+test("original product photos are the default and no generic product is presented as real", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const requests = [];
+  page.on("request", (request) => requests.push(request.url()));
+  await page.goto("/");
+  await page.locator("#experiencia-3d").scrollIntoViewIfNeeded();
+  const root = page.locator(".product-studio"),
+    photo = page.locator("[data-real-product-photo]");
+  for (const [i, file] of [
+    "taca.png",
+    "chaleira.png",
+    "air-fryer.png",
+    "almofadas.png",
+  ].entries()) {
+    await page.locator(`button[data-product="${i}"]`).click();
+    await expect(photo).toHaveAttribute("src", `/assets/products/${file}`);
+    await expect(root).toHaveAttribute("data-real-photo-ready", "true");
+    await expect(photo).toBeVisible();
+    await expect(page.locator(".studio-canvas")).toBeHidden();
+    await expect(page.locator("[data-product-demo]")).toBeHidden();
+    expect(await photo.evaluate((el) => el.naturalWidth > 0)).toBe(true);
+  }
+  await expect(page.locator("button[data-product]")).toHaveCount(4);
+  expect(requests.some((url) => url.includes("/three/product-view"))).toBe(
+    false,
+  );
+  await expect(page.locator("[data-view-photo]")).toHaveAttribute(
+    "aria-pressed",
+    "true",
   );
 });

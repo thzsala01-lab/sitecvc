@@ -97,19 +97,20 @@
       </section>
 
       <section class="product-studio" id="experiencia-3d" aria-labelledby="studio-title" aria-roledescription="carrossel">
-        <div class="studio-top"><p class="studio-eyebrow">CMC Enxovais / Explore em 3D</p><span class="studio-edition">Volume real. Novos ângulos.</span></div>
+        <div class="studio-top"><p class="studio-eyebrow">CMC Enxovais / Nossos produtos</p><span class="studio-edition">Produtos reais. Fotos originais.</span></div>
         <div class="studio-stage">
           <div class="studio-word" aria-hidden="true">Taça</div>
           <div class="studio-orbit studio-orbit--one" aria-hidden="true"></div>
           <div class="studio-orbit studio-orbit--two" aria-hidden="true"></div>
-          <div class="studio-canvas" role="group" aria-label="Visualizador de produtos 3D" tabindex="0"><p class="studio-loading">Preparando o produto em 3D…</p></div>
+          <div class="studio-photo-host"><img data-real-product-photo src="/assets/products/taca.png" alt="Taça âmbar facetada original enviada" decoding="async" loading="lazy" /></div>
+          <div class="studio-canvas" role="group" aria-label="Demonstração 3D aproximada do produto" tabindex="0" hidden><p class="studio-loading">Preparando a demonstração…</p></div>
           <div class="studio-copy" aria-live="polite" aria-atomic="true">
             <p class="studio-eyebrow" data-studio-category>Mesa & encontros</p>
-            <h2 id="studio-title">Cada detalhe, <br>um novo ângulo.</h2>
-            <p data-studio-description>Explore o volume e os relevos da taça âmbar.</p>
+            <h2 id="studio-title">Um brinde aos <br>bons momentos.</h2>
+            <p data-studio-description>A taça âmbar original, com seus relevos e detalhes reais.</p>
             <a class="studio-cta" href="#contato" data-studio-cta>Consultar taças <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="studio-caption"><span class="studio-caption-dot"></span><span data-studio-hint>Arraste para girar · + e − para ampliar · R para restaurar</span></div>
+          <div class="studio-caption"><span class="studio-caption-dot"></span><span data-studio-hint>Foto original · detalhes reais do produto</span></div>
 
         </div>
         <div class="studio-bottom">
@@ -118,20 +119,23 @@
             <button type="button" data-product="1" aria-pressed="false"><span>02</span>Chaleira</button>
             <button type="button" data-product="2" aria-pressed="false"><span>03</span>Air Fryer</button>
             <button type="button" data-product="3" aria-pressed="false"><span>04</span>Almofada</button>
-            <button type="button" data-product="4" aria-pressed="false"><span>05</span>Toalha</button>
           </div>
           <div class="studio-controls">
             <button type="button" data-studio-prev aria-label="Produto anterior">←</button>
-            <button type="button" data-studio-motion aria-pressed="false" disabled>Pausar animação</button>
+            <button type="button" data-studio-motion aria-pressed="false" disabled hidden>Pausar animação</button>
             <button type="button" data-studio-next aria-label="Próximo produto">→</button>
           </div>
         </div>
-        <div class="studio-demo-bar">
+        <div class="studio-view-switch" role="group" aria-label="Escolher visualização">
+          <button type="button" data-view-photo aria-pressed="true">Foto do produto</button>
+          <button type="button" data-view-model aria-pressed="false">Demonstração 3D aproximada</button>
+        </div>
+        <div class="studio-demo-bar" hidden>
           <div><button type="button" data-product-demo disabled>Demonstrar funcionamento</button><button type="button" data-product-reset disabled>Restaurar vista</button></div>
           <p data-demo-status role="status">Gire e explore o produto.</p>
         </div>
         <p class="studio-model-disclosure" data-model-note></p>
-        <noscript><p class="studio-noscript">Ative o JavaScript para visualizar os modelos 3D ou use os links do catálogo.</p></noscript>
+        <noscript><p class="studio-noscript">Use os links do catálogo para conhecer os produtos. A foto original da taça está disponível acima.</p></noscript>
       </section>
 
       <section class="categories section" id="produtos" aria-labelledby="products-title">

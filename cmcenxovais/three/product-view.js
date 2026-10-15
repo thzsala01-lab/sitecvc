@@ -27,7 +27,8 @@ export function mountProductViewer(root, { onDemoState = () => {} } = {}) {
   );
   floor.rotation.x = -Math.PI / 2;
   floor.castShadow = false;
-  let selectedKey = null,
+  let enabled = true,
+    selectedKey = null,
     model = null,
     frame = 0,
     visible = false,
@@ -39,7 +40,7 @@ export function mountProductViewer(root, { onDemoState = () => {} } = {}) {
     lastDraw = 0;
   const preference = matchMedia("(prefers-reduced-motion: reduce)");
   function queue() {
-    if (!frame && visible && !document.hidden && !disposed)
+    if (enabled && !frame && visible && !document.hidden && !disposed)
       frame = requestAnimationFrame(tick);
   }
   function render() {
@@ -54,7 +55,7 @@ export function mountProductViewer(root, { onDemoState = () => {} } = {}) {
   }
   function tick(now) {
     frame = 0;
-    if (!visible || document.hidden || disposed) {
+    if (!enabled || !visible || document.hidden || disposed) {
       last = 0;
       return;
     }
@@ -242,6 +243,14 @@ export function mountProductViewer(root, { onDemoState = () => {} } = {}) {
   root.dataset.viewerState = "ready";
   return {
     select,
+    setEnabled(value) {
+      enabled = value;
+      last = 0;
+      if (!enabled) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else queue();
+    },
     togglePause() {
       paused = !paused;
       root.dataset.motion = paused ? "paused" : "playing";

@@ -34,13 +34,11 @@ O Google Sites não executa o backend Express nem o banco de dados deste projeto
 
 A página inicial usa Three.js e WebGL2 para renderizar uma casa e os produtos como malhas volumétricas. A câmera começa no exterior, atravessa a sala e o corredor e para diante da porta do quarto. O botão **Clique para entrar**, acessível por teclado, ou um clique na própria porta abre a folha no eixo das dobradiças e conduz a câmera ao quarto. Há pausa, repetição e acesso direto aos produtos; a visita não bloqueia a navegação do site.
 
-Na vitrine, arraste para girar os modelos em 360°, use dois dedos para aproximar no celular ou use o teclado: setas giram, `+`/`-` aproximam e `R` restaura a vista. A roda do mouse só controla o zoom depois de focar o visualizador. As demonstrações podem ser pausadas e repetidas:
+Na vitrine, a visualização inicial mostra **as quatro fotos originais enviadas**: taça âmbar, chaleira BE.SMART, air fryer BE.SMART de duas gavetas e par de almofadas esportivas. Os PNGs são preservados em `public/assets/products/`, sem recriar formas, marcas ou estampas. Ao escolher outro produto, a foto original é exibida novamente.
 
-- **Taça âmbar:** volume, haste, base e facetas geométricas; não recebe água.
-- **Chaleira:** corpo transparente, tampa, alça, bico, água volumétrica, inclinação e fluxo segmentado em 3D para um **copo liso auxiliar**.
-- **Air fryer:** carcaça, dois cestos com volume e puxadores, com abertura e fechamento independentes nas suas guias.
-- **Almofada:** malha com espessura e costura; a demonstração comprime os vértices e depois restaura a forma. A estampa frontal vem da foto fornecida, aplicada como textura UV sobre a malha 3D; não há plano da fotografia simulando o produto.
-- **Toalha:** malha fechada com espessura que se transforma de espiral enrolada em tecido aberto. É um estudo genérico de movimento, sem novo SKU, preço, medida ou especificação comercial.
+O botão **Demonstração 3D aproximada** abre a reconstrução opcional. Ela nunca substitui automaticamente a foto real. Nessa visualização, arraste para girar, use dois dedos para aproximar ou use as setas, `+`/`-` e `R`. As animações existentes de chaleira com copo liso, gavetas e almofada continuam disponíveis como demonstrações. Ao voltar à foto, a renderização do produto é suspensa. A casa continua em 3D.
+
+A toalha genérica não aparece entre os produtos reais, pois não foi fornecida uma foto ou identificação comercial. Seu estudo de malha continua no código e nos testes, sem ser apresentado como produto do catálogo.
 
 ### Referências e limites dos modelos
 
@@ -52,11 +50,11 @@ A casa é um ambiente autoral para a visita. Vídeos, GIFs e fotografias da casa
 
 - `intro-3d.js` e `three/house-view.js`: carregamento da casa, estados da visita, câmera e porta.
 - `three/house-model.js`: arquitetura, mobiliário e funções de trajetória testáveis.
-- `showcase.js` e `three/product-view.js`: seleção, carregamento sob demanda, órbita, zoom, demonstrações e teclado.
+- `showcase.js` e `three/product-view.js`: fotos originais por padrão; demonstração 3D aproximada opcional, órbita, zoom e teclado.
 - `three/product-models.js`: geometrias e animações dos cinco objetos.
 - `three/runtime.js`: renderer, iluminação, sombras e limite de resolução. A resolução se adapta ao tamanho da tela e é reduzida em renderizadores por software. A resolução da refração e das sombras também é limitada.
 
-O código dos produtos só é carregado quando a vitrine entra na tela. Os modelos são criados localmente, sem downloads de arquivos 3D grandes. As renderizações param fora da tela ou com a aba oculta; produtos parados são renderizados sob demanda. Geometrias, materiais e texturas do modelo anterior são liberados ao trocar de produto. A preferência de movimento reduzido leva direto à porta fechada, mantendo a entrada por clique. Sem WebGL2, os links e demais páginas continuam disponíveis, sem apresentar fotografias como se fossem 3D.
+O código do visualizador de produtos só é carregado quando o visitante solicita explicitamente a demonstração 3D. Os modelos são criados localmente, sem downloads de arquivos 3D grandes. As renderizações param fora da tela ou com a aba oculta; produtos parados são renderizados sob demanda. Geometrias, materiais e texturas do modelo anterior são liberados ao trocar de produto. A preferência de movimento reduzido leva direto à porta fechada, mantendo a entrada por clique. Sem WebGL2, os links e demais páginas continuam disponíveis, sem apresentar fotografias como se fossem 3D.
 
 O backend, os formulários, a autenticação, as páginas administrativas e o conteúdo comercial após a vitrine permanecem preservados. A vitrine não altera preços nem cria itens comerciais. O link de catálogo continua usando o fluxo existente do servidor.
 
