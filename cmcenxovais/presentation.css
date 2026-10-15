@@ -72,3 +72,66 @@
     transition: none;
   }
 }
+/* Reserve separate columns for the product photograph and its description. */
+@media (min-width: 701px) {
+  .studio-photo-host {
+    inset: 0 3% 0 40%;
+    padding: 65px 24px 65px;
+  }
+  .studio-copy {
+    width: 32%;
+    max-width: 320px;
+    top: 26%;
+  }
+  .studio-caption {
+    left: 69%;
+    bottom: 22px;
+  }
+  .studio-word {
+    left: 69%;
+    font-size: clamp(45px, 6vw, 88px);
+  }
+}
+@media (max-width: 700px) {
+  .studio-stage {
+    height: 740px;
+    min-height: 740px;
+    max-height: none;
+  }
+  .studio-photo-host {
+    inset: 0 0 265px;
+    padding: 65px 30px 30px;
+  }
+  .studio-copy {
+    top: auto;
+    bottom: 32px;
+    left: 7%;
+    width: 86%;
+    max-width: 86%;
+  }
+  .studio-copy h2 {
+    font-size: 29px;
+    margin-bottom: 12px;
+  }
+  .studio-copy h2 br {
+    display: none;
+  }
+  .studio-copy > p:not(.studio-eyebrow) {
+    font-size: 12px;
+    max-width: 330px;
+  }
+  .studio-caption {
+    left: 50%;
+    bottom: 265px;
+    max-width: 90%;
+    white-space: normal;
+    text-align: center;
+  }
+  .studio-word {
+    left: 50%;
+    font-size: 13vw;
+  }
+}
+@media(min-width:701px) {
+ .studio-word {left:5.5%;top:5%;transform:none;font-size:30px;opacity:.4;letter-spacing:-.03em;}
+}

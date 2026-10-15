@@ -1,3 +1,4 @@
+import { mountPhotoMotion } from "./product-motion.js";
 const products = [
   {
     name: "Taça",
@@ -72,6 +73,7 @@ const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 let paused = reduced.matches;
 function schedule() {
   clearTimeout(timer);
+  root.dataset.productVisible = String(visible && !document.hidden);
   if (!paused && visible && !document.hidden)
     timer = setTimeout(() => select(selected + 1), 5000);
 }
@@ -91,6 +93,7 @@ function select(index, user = false) {
     real.description;
   photo.alt = real.alt;
   photo.src = "/assets/products/" + real.file;
+  mountPhotoMotion(root.querySelector(".studio-photo-host"), photo, selected);
   const cta = root.querySelector("[data-studio-cta]");
   cta.firstChild.textContent = p.cta + " ";
   cta.href =
@@ -102,14 +105,6 @@ function select(index, user = false) {
     .querySelectorAll("[data-product]")
     .forEach((b, i) => b.setAttribute("aria-pressed", String(i === selected)));
   if (!reduced.matches) {
-    photo.getAnimations().forEach((a) => a.cancel());
-    photo.animate(
-      [
-        { opacity: 0, transform: "translateY(14px) scale(.97)" },
-        { opacity: 1, transform: "translateY(0) scale(1)" },
-      ],
-      { duration: 700, easing: "ease-out" },
-    );
     copy.getAnimations().forEach((a) => a.cancel());
     copy.animate(
       [
@@ -122,10 +117,9 @@ function select(index, user = false) {
   schedule();
 }
 function updatePause() {
+  root.dataset.productMotion = paused ? "paused" : "playing";
   pause.setAttribute("aria-pressed", String(paused));
-  pause.textContent = paused
-    ? "Continuar troca automática"
-    : "Pausar troca automática";
+  pause.textContent = paused ? "Continuar apresentação" : "Pausar apresentação";
   schedule();
 }
 pause.addEventListener("click", () => {
