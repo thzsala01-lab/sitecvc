@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/showcase.css" />
+    <link rel="stylesheet" href="/immersive.css" />
     <script>document.documentElement.classList.add('js');</script>
   </head>
   <body>
@@ -62,24 +63,30 @@
     </header>
 
     <main id="conteudo">
-      <section class="hero" id="inicio" aria-labelledby="hero-title">
-        <img class="hero__mobile-image" src="/assets/cmc-hero-cama-frontal.png" alt="Cama alinhada de frente com colcha vermelha e mulher em pé ao lado" fetchpriority="high" />
-        <div class="hero__image" role="img" aria-label="Mulher em pé ao lado da cama alinhada de frente, com colcha vermelha e luz natural"></div>
-        <div class="hero__veil"></div>
-        <button class="hero-motion" type="button" data-hero-motion aria-pressed="false">Pausar movimento</button>
+      <section class="hero hero--immersive" id="inicio" aria-labelledby="hero-title" data-house data-house-phase="loading">
+        <div class="house-canvas" data-house-canvas role="img" aria-label="Visita tridimensional a uma casa moderna, pela sala e corredor até o quarto"><p class="house-loading">Preparando sua visita 3D…</p></div>
+        <div class="house-shade" aria-hidden="true"></div>
         <div class="shell hero__inner">
-          <div class="hero__content" data-reveal>
-            <p class="eyebrow eyebrow--light">CMC Enxovais <span aria-hidden="true">·</span> há mais de 20 anos</p>
+          <div class="hero__content">
+            <p class="eyebrow">CMC Enxovais · Sinta-se em casa</p>
             <h1 id="hero-title">Conforto que<br /><em>acolhe.</em></h1>
-            <p class="hero__intro">Enxovais e utilidades para deixar sua casa mais bonita e sua revenda cheia de possibilidades.</p>
+            <p class="hero__intro">Uma casa para descobrir. Detalhes para viver.</p>
             <div class="hero__actions">
               <a class="button button--light" href="#revendedores">Conhecer a revenda <span aria-hidden="true">↗</span></a>
               <a class="button button--ghost-light" href="/catalogo">Ver catálogo <span aria-hidden="true">→</span></a>
             </div>
           </div>
-
         </div>
-        <a class="scroll-cue" href="#experiencia-3d" aria-label="Descer para explorar os produtos"><span></span>Desça para descobrir</a>
+        <button class="house-prompt" type="button" data-house-enter hidden><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19 19 5M5 5h14v14" /></svg></span> Clique para entrar</button>
+        <div class="house-footer">
+          <p data-house-status role="status">A câmera vai conduzir você até a porta do quarto.</p>
+          <div class="house-actions">
+            <button type="button" data-house-pause aria-pressed="false">Pausar visita</button>
+            <button type="button" data-house-replay hidden>Rever entrada</button>
+            <a href="#experiencia-3d">Ir aos produtos <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <noscript><p class="house-noscript">Ative o JavaScript para a visita 3D ou continue pelo catálogo.</p></noscript>
       </section>
 
       <section class="confidence-strip" aria-label="Diferenciais da CMC">
@@ -90,20 +97,20 @@
       </section>
 
       <section class="product-studio" id="experiencia-3d" aria-labelledby="studio-title" aria-roledescription="carrossel">
-        <div class="studio-top"><p class="studio-eyebrow">CMC Enxovais / Objetos de afeto</p><span class="studio-edition">Uma nova perspectiva da sua casa</span></div>
+        <div class="studio-top"><p class="studio-eyebrow">CMC Enxovais / Explore em 3D</p><span class="studio-edition">Volume real. Novos ângulos.</span></div>
         <div class="studio-stage">
           <div class="studio-word" aria-hidden="true">Taça</div>
           <div class="studio-orbit studio-orbit--one" aria-hidden="true"></div>
           <div class="studio-orbit studio-orbit--two" aria-hidden="true"></div>
-          <div class="studio-canvas" role="img" aria-label="Foto da taça âmbar. Use as setas para explorar a perspectiva." tabindex="0"><img class="studio-photo-fallback" src="/assets/products/taca.png" alt="Taça âmbar facetada" loading="lazy" /></div>
+          <div class="studio-canvas" role="group" aria-label="Visualizador de produtos 3D" tabindex="0"><p class="studio-loading">Preparando o produto em 3D…</p></div>
           <div class="studio-copy" aria-live="polite" aria-atomic="true">
             <p class="studio-eyebrow" data-studio-category>Mesa & encontros</p>
-            <h2 id="studio-title">Um brinde aos <br>bons momentos.</h2>
-            <p data-studio-description>Pequenos detalhes que transformam a arte de receber.</p>
+            <h2 id="studio-title">Cada detalhe, <br>um novo ângulo.</h2>
+            <p data-studio-description>Explore o volume e os relevos da taça âmbar.</p>
             <a class="studio-cta" href="#contato" data-studio-cta>Consultar taças <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="studio-caption"><span class="studio-caption-dot"></span><span data-studio-hint>Mova o cursor ou arraste para explorar os detalhes</span></div>
-          <span class="studio-model-note">Fotos dos nossos produtos</span>
+          <div class="studio-caption"><span class="studio-caption-dot"></span><span data-studio-hint>Arraste para girar · + e − para ampliar · R para restaurar</span></div>
+
         </div>
         <div class="studio-bottom">
           <div class="studio-products" role="group" aria-label="Escolher produto">
@@ -111,14 +118,20 @@
             <button type="button" data-product="1" aria-pressed="false"><span>02</span>Chaleira</button>
             <button type="button" data-product="2" aria-pressed="false"><span>03</span>Air Fryer</button>
             <button type="button" data-product="3" aria-pressed="false"><span>04</span>Almofada</button>
+            <button type="button" data-product="4" aria-pressed="false"><span>05</span>Toalha</button>
           </div>
           <div class="studio-controls">
             <button type="button" data-studio-prev aria-label="Produto anterior">←</button>
-            <button type="button" data-studio-motion aria-pressed="false">Pausar animação</button>
+            <button type="button" data-studio-motion aria-pressed="false" disabled>Pausar animação</button>
             <button type="button" data-studio-next aria-label="Próximo produto">→</button>
           </div>
         </div>
-        <noscript><p class="studio-noscript">Ative o JavaScript para explorar as animações das fotos de taças, chaleiras, air fryers e almofadas.</p></noscript>
+        <div class="studio-demo-bar">
+          <div><button type="button" data-product-demo disabled>Demonstrar funcionamento</button><button type="button" data-product-reset disabled>Restaurar vista</button></div>
+          <p data-demo-status role="status">Gire e explore o produto.</p>
+        </div>
+        <p class="studio-model-disclosure" data-model-note></p>
+        <noscript><p class="studio-noscript">Ative o JavaScript para visualizar os modelos 3D ou use os links do catálogo.</p></noscript>
       </section>
 
       <section class="categories section" id="produtos" aria-labelledby="products-title">
@@ -286,6 +299,6 @@
     </a>
     <script type="module" src="/main.js"></script>
     <script type="module" src="/showcase.js"></script>
-    <script type="module" src="/hero-depth.js"></script>
+    <script type="module" src="/intro-3d.js"></script>
   </body>
 </html>

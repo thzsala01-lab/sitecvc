@@ -9,13 +9,17 @@
     "build": "vite build",
     "preview": "NODE_ENV=production node server/index.js",
     "start": "NODE_ENV=production node server/index.js",
-    "check": "vite build"
+    "check": "vite build",
+    "test": "node --test tests/three-models.test.js",
+    "test:browser": "playwright test"
   },
   "dependencies": {
     "express": "^4.21.2",
-    "mysql2": "^3.14.3"
+    "mysql2": "^3.14.3",
+    "three": "0.180.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.58.2",
     "vite": "^7.1.7"
   }
 }
