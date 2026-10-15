@@ -21,8 +21,8 @@ const products = [
     name: "Air Fryer",
     category: "Praticidade & sabor",
     cta: "Consultar air fryers",
-    bg: "#d0c6df",
-    ink: "#3d3055",
+    bg: "#302630",
+    ink: "#fff5e8",
     interest: "air fryers",
   },
   {
@@ -118,6 +118,17 @@ async function select(index, user = false) {
     real = photos[selected];
   root.dataset.activeProduct = String(selected);
   root.style.setProperty("--studio-bg", p.bg);
+  const backdrop = root.querySelector(".studio-backdrop");
+  backdrop.getAnimations().forEach((a) => a.cancel());
+  backdrop.style.backgroundColor = p.bg;
+  if (changed && !reduced.matches)
+    backdrop.animate(
+      [
+        { opacity: 0, clipPath: "circle(0% at 75% 45%)" },
+        { opacity: 1, clipPath: "circle(150% at 75% 45%)" },
+      ],
+      { duration: 1100, easing: "cubic-bezier(.22,.68,.2,1)" },
+    );
   root.style.setProperty("--studio-ink", p.ink);
   root.querySelector(".studio-word").textContent = p.name;
   root
@@ -127,8 +138,8 @@ async function select(index, user = false) {
   if (changed && !reduced.matches)
     root.querySelector(".studio-word").animate(
       [
-        { opacity: 0, transform: "translate(-45%, -50%)" },
-        { opacity: 1, transform: "translate(-50%, -50%)" },
+        { opacity: 0, transform: "translateY(28px)" },
+        { opacity: 1, transform: "translateY(0)" },
       ],
       { duration: 1000, easing: "cubic-bezier(.22,.68,.2,1)" },
     );
@@ -163,10 +174,10 @@ async function select(index, user = false) {
     copy.getAnimations().forEach((a) => a.cancel());
     copy.animate(
       [
-        { opacity: 0, transform: "translateY(12px)" },
+        { opacity: 0, transform: "translateY(25px)" },
         { opacity: 1, transform: "translateY(0)" },
       ],
-      { duration: 550, easing: "ease-out" },
+      { duration: 850, easing: "cubic-bezier(.22,.68,.2,1)", delay: 90 },
     );
   }
   schedule();

@@ -18,7 +18,7 @@ export function mountPhotoMotion(host, photo, previousSource, animate) {
     return;
   }
   const timing = {
-    duration: 1050,
+    duration: 1200,
     easing: "cubic-bezier(.22,.68,.2,1)",
     fill: "both",
   };
@@ -26,7 +26,10 @@ export function mountPhotoMotion(host, photo, previousSource, animate) {
     const exit = outgoing.animate(
       [
         { opacity: 1, transform: "translateX(0) rotate(0) scale(1)" },
-        { opacity: 0, transform: "translateX(-90px) rotate(-5deg) scale(.94)" },
+        {
+          opacity: 0,
+          transform: "translate(-80px, -75px) rotate(-7deg) scale(.9)",
+        },
       ],
       timing,
     );
@@ -34,7 +37,10 @@ export function mountPhotoMotion(host, photo, previousSource, animate) {
   }
   const entrance = photo.animate(
     [
-      { opacity: 0, transform: "translateX(100px) rotate(5deg) scale(.96)" },
+      {
+        opacity: 0,
+        transform: "translate(100px, 95px) rotate(7deg) scale(.9)",
+      },
       { opacity: 1, transform: "translateX(0) rotate(0) scale(1)" },
     ],
     timing,

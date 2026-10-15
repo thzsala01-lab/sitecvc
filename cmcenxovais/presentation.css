@@ -366,3 +366,192 @@
     transition: none;
   }
 }
+/* Product-led editorial composition inspired by the supplied motion reference. */
+.product-studio {
+  background: var(--studio-bg);
+}
+.studio-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+}
+.studio-light {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 76% 35%, #ffffff25, transparent 65%);
+}
+.studio-ribbons {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.2;
+}
+.studio-ribbons i {
+  position: absolute;
+  width: 120%;
+  height: 45%;
+  left: 10%;
+  top: 54%;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transform: rotate(-17deg);
+}
+.studio-ribbons i:nth-child(2) {
+  top: 57%;
+  left: 8%;
+}
+.studio-ribbons i:nth-child(3) {
+  top: 60%;
+  left: 6%;
+}
+.studio-top {
+  border-color: currentColor;
+}
+.studio-stage {
+  height: 670px;
+  min-height: 600px;
+}
+.studio-word {
+  left: 5.5%;
+  top: 11%;
+  transform: none;
+  width: 35%;
+  font-size: clamp(75px, 8vw, 140px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  white-space: normal;
+  color: inherit;
+  z-index: 3;
+}
+.studio-photo-host {
+  inset: 15px 3% 30px 41%;
+}
+.studio-copy {
+  left: 5.5%;
+  top: 48%;
+  bottom: auto;
+  width: 34%;
+  max-width: 430px;
+}
+.studio-copy h2 {
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(24px, 2.7vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.15;
+  max-width: 20ch;
+}
+.studio-copy .studio-eyebrow {
+  font-size: 10px !important;
+  letter-spacing: 0.14em;
+}
+.studio-copy > p:not(.studio-eyebrow) {
+  font-size: 13px;
+  max-width: 33ch;
+}
+.studio-caption {
+  bottom: 10px;
+  right: 5%;
+}
+.studio-bottom {
+  border-color: currentColor;
+}
+.product-studio[data-product-visible="true"][data-product-motion="playing"]:not(
+    [data-perspective="true"]
+  )
+  .studio-photo-host {
+  animation: studio-hover 6s ease-in-out infinite;
+}
+@keyframes studio-hover {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -8px;
+  }
+}
+@media (min-width: 1600px) {
+  .studio-stage {
+    height: 750px;
+  }
+  .studio-word {
+    font-size: 150px;
+  }
+  .studio-copy {
+    top: 48%;
+  }
+}
+@media (max-width: 1000px) and (min-width: 701px) {
+  .studio-stage {
+    height: 650px;
+  }
+  .studio-word {
+    font-size: 8.5vw;
+    top: 15%;
+    width: 37%;
+  }
+  .studio-copy {
+    top: 43%;
+    width: 35%;
+  }
+  .studio-copy h2 {
+    font-size: 28px;
+  }
+  .studio-photo-host {
+    inset: 40px 2% 80px 43%;
+  }
+}
+@media (max-width: 700px) {
+  .studio-stage {
+    height: 835px;
+    min-height: 835px;
+    max-height: none;
+  }
+  .studio-word {
+    left: 7%;
+    top: 22px;
+    width: 86%;
+    font-size: clamp(48px, 13vw, 80px);
+    white-space: nowrap;
+  }
+  .studio-photo-host {
+    inset: 110px 7% 285px;
+  }
+  .studio-copy {
+    left: 7%;
+    top: auto;
+    bottom: 40px;
+    width: 86%;
+    max-width: 86%;
+  }
+  .studio-copy h2 {
+    font-size: 29px;
+    max-width: 24ch;
+  }
+  .studio-copy > p:not(.studio-eyebrow) {
+    font-size: 12px;
+    max-width: 38ch;
+  }
+  .studio-caption {
+    left: 7%;
+    right: auto;
+    bottom: 10px;
+  }
+  .studio-ribbons i {
+    width: 170%;
+    left: -30%;
+    top: 30%;
+    height: 30%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .product-studio .studio-photo-host {
+    animation: none !important;
+  }
+}
