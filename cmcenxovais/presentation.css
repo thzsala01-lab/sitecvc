@@ -25,16 +25,16 @@
 .studio-word {
   position: absolute;
   left: 50%;
-  top: 39%;
-  transform: translate(-50%, -50%);
+  top: 28px;
+  transform: translateX(-50%);
   font-family: Montserrat, Arial, sans-serif;
-  font-size: clamp(88px, 15vw, 225px);
+  font-size: clamp(40px, 5vw, 68px);
   font-weight: 800;
-  letter-spacing: -0.065em;
-  line-height: 0.95;
-  color: #fff;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  color: var(--studio-ink);
   opacity: 1;
-  z-index: 1;
+  z-index: 3;
   white-space: nowrap;
 }
 .studio-photo-host {
@@ -107,7 +107,7 @@
     max-width: 420px;
   }
   .studio-word {
-    font-size: 16vw;
+    font-size: 52px;
   }
 }
 @media (max-width: 700px) {
@@ -120,8 +120,8 @@
     max-height: none;
   }
   .studio-word {
-    top: 28%;
-    font-size: clamp(54px, 17vw, 105px);
+    top: 22px;
+    font-size: clamp(34px, 9vw, 48px);
     max-width: none;
   }
   .studio-photo-host {
@@ -175,3 +175,18 @@
  .studio-photo-host {inset:20px 16% 235px;}
  .studio-copy {width:43%;max-width:520px;}
 }
+
+/* A dedicated title row keeps every product name clear of the photograph. */
+@media(min-width:901px) {
+ .studio-stage {height:880px;}
+ .studio-photo-host {inset:120px 16% 235px;}
+}
+@media(min-width:701px) and (max-width:900px) {
+ .studio-stage {height:760px;}
+ .studio-photo-host {inset:115px 12% 215px;}
+}
+@media(max-width:700px) {
+ .studio-stage {height:805px;min-height:805px;}
+ .studio-photo-host {inset:85px 7% 265px;}
+}
+.studio-copy h2 {text-wrap:balance;max-width:26ch;line-height:1.25;}

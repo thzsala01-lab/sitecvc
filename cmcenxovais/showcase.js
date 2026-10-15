@@ -119,8 +119,8 @@ async function select(index, user = false) {
   if (changed && !reduced.matches)
     root.querySelector(".studio-word").animate(
       [
-        { opacity: 0, transform: "translate(-45%, -50%)" },
-        { opacity: 1, transform: "translate(-50%, -50%)" },
+        { opacity: 0, transform: "translateX(-45%)" },
+        { opacity: 1, transform: "translateX(-50%)" },
       ],
       { duration: 1000, easing: "cubic-bezier(.22,.68,.2,1)" },
     );
