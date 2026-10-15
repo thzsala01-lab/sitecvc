@@ -30,40 +30,22 @@ Para compilar: `pnpm run build`. Para iniciar em produção: `set -a; . ./.env; 
 
 O Google Sites não executa o backend Express nem o banco de dados deste projeto. Para usar o site completo nesse serviço, é necessário hospedar o projeto com Node.js/MySQL e incorporar a URL pública por iframe; importar somente `index.html` não habilita login, formulários ou painel administrativo.
 
-## Experiência 3D real
+## Apresentação e vitrine de fotos
 
-A página inicial usa Three.js e WebGL2 para renderizar uma casa e os produtos como malhas volumétricas. A câmera começa no exterior, atravessa a sala e o corredor e para diante da porta do quarto. O botão **Clique para entrar**, acessível por teclado, ou um clique na própria porta abre a folha no eixo das dobradiças e conduz a câmera ao quarto. Há pausa, repetição e acesso direto aos produtos; a visita não bloqueia a navegação do site.
+A abertura voltou à foto frontal da cama e da mulher, com entrada suave e movimento discreto. Após o carregamento da foto, a página aguarda cinco segundos visíveis e desce para a vitrine. Rolar, tocar, usar o teclado ou clicar em um controle cancela essa descida. Entradas por âncora e páginas já roladas preservam a posição do visitante.
 
-Na vitrine, a visualização inicial mostra **as quatro fotos originais enviadas**: taça âmbar, chaleira BE.SMART, air fryer BE.SMART de duas gavetas e par de almofadas esportivas. Os PNGs são preservados em `public/assets/products/`, sem recriar formas, marcas ou estampas. Ao escolher outro produto, a foto original é exibida novamente.
+A vitrine alterna a cada cinco segundos entre as quatro fotos reais em `public/assets/products/`: taça, chaleira, air fryer e almofadas. Há seleção direta, anterior, próximo e pausa. O temporizador só funciona com a vitrine visível e a aba ativa. A preferência por movimento reduzido desliga as animações e inicia a troca automática pausada. Os módulos e a dependência de Three.js foram removidos.
 
-O botão **Demonstração 3D aproximada** abre a reconstrução opcional. Ela nunca substitui automaticamente a foto real. Nessa visualização, arraste para girar, use dois dedos para aproximar ou use as setas, `+`/`-` e `R`. As animações existentes de chaleira com copo liso, gavetas e almofada continuam disponíveis como demonstrações. Ao voltar à foto, a renderização do produto é suspensa. A casa continua em 3D.
+- `intro-presentation.js`: apresentação inicial, pausa e descida automática.
+- `showcase.js`: carrossel de produtos e links de consulta.
+- `presentation.css` e `showcase.css`: apresentação responsiva das fotos.
 
-A toalha genérica não aparece entre os produtos reais, pois não foi fornecida uma foto ou identificação comercial. Seu estudo de malha continua no código e nos testes, sem ser apresentado como produto do catálogo.
+O backend, os formulários, a autenticação, as páginas administrativas e o conteúdo comercial após a vitrine permanecem preservados. A vitrine não altera preços nem cria itens comerciais.
 
-### Referências e limites dos modelos
+## Validação da interface
 
-Não foram fornecidos arquivos CAD/glTF nem medidas ou vistas completas. Os modelos são reconstruções visuais das formas observáveis nas fotos, em unidades normalizadas. Não são réplicas dimensionais certificadas do fabricante. Superfícies não fotografadas ficam neutras; a parte interna dos cestos é simplificada, sem reproduzir componentes técnicos não documentados. As demonstrações de água e tecido são animações geométricas, não simulações físicas de desempenho do produto. Para fidelidade dimensional, as fábricas em `three/product-models.js` podem ser substituídas por modelos aprovados e medidos.
+Para a interface sem banco: `pnpm exec vite --host 0.0.0.0`. Esse modo não fornece a API Express. Para o site completo, use Node/MySQL e as variáveis descritas no início deste documento.
 
-A casa é um ambiente autoral para a visita. Vídeos, GIFs e fotografias da casa/produto não são usados como substitutos da geometria. Texturas de tecido e inscrições são materiais de superfície; luzes, câmera, sombras, objetos, líquidos e deformações são renderizados em tempo real.
+`pnpm run build` compila as páginas. Instale o navegador com `pnpm exec playwright install chromium` e execute `pnpm test`. Em máquinas com Chromium instalado, use `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium pnpm test`.
 
-### Estrutura e desempenho
-
-- `intro-3d.js` e `three/house-view.js`: carregamento da casa, estados da visita, câmera e porta.
-- `three/house-model.js`: arquitetura, mobiliário e funções de trajetória testáveis.
-- `showcase.js` e `three/product-view.js`: fotos originais por padrão; demonstração 3D aproximada opcional, órbita, zoom e teclado.
-- `three/product-models.js`: geometrias e animações dos cinco objetos.
-- `three/runtime.js`: renderer, iluminação, sombras e limite de resolução. A resolução se adapta ao tamanho da tela e é reduzida em renderizadores por software. A resolução da refração e das sombras também é limitada.
-
-O código do visualizador de produtos só é carregado quando o visitante solicita explicitamente a demonstração 3D. Os modelos são criados localmente, sem downloads de arquivos 3D grandes. As renderizações param fora da tela ou com a aba oculta; produtos parados são renderizados sob demanda. Geometrias, materiais e texturas do modelo anterior são liberados ao trocar de produto. A preferência de movimento reduzido leva direto à porta fechada, mantendo a entrada por clique. Sem WebGL2, os links e demais páginas continuam disponíveis, sem apresentar fotografias como se fossem 3D.
-
-O backend, os formulários, a autenticação, as páginas administrativas e o conteúdo comercial após a vitrine permanecem preservados. A vitrine não altera preços nem cria itens comerciais. O link de catálogo continua usando o fluxo existente do servidor.
-
-### Executar e testar
-
-Para a interface, sem banco: `pnpm exec vite --host 0.0.0.0`. Esse modo não fornece a API Express. Para o site completo, use Node/MySQL e as variáveis descritas no início deste documento.
-
-- `pnpm run build`: compila as três páginas existentes e os módulos 3D separados.
-- `pnpm test`: testa os volumes, a porta, o caminho da câmera, as guias das gavetas, o copo correto, a deformação e o desenrolar do tecido.
-- `pnpm exec playwright install chromium` e `pnpm run test:browser`: testa o percurso real em WebGL, o clique de entrada, a órbita, as demonstrações, pausa, celular, movimento reduzido e ausência de WebGL. Em máquinas com Chromium instalado, pode-se usar `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium pnpm run test:browser`.
-
-Os testes de navegador isolam a consulta inicial de sessão como usuário deslogado; não simulam sucesso de login nem de compras. A integração MySQL/e-mail requer as credenciais do ambiente e não é coberta pelos testes visuais.
+Os testes verificam o intervalo da abertura, a descida, a troca automática, a pausa, as quatro fotos, a navegação manual e o layout móvel com movimento reduzido. A consulta inicial de sessão é isolada como usuário deslogado; MySQL e e-mail exigem as credenciais do ambiente e não são cobertos por esses testes.

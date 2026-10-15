@@ -1,7 +1,7 @@
 import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
-  testMatch: "browser-3d.spec.js",
+  testMatch: "presentation.spec.js",
   workers: 1,
   timeout: 150000,
   expect: { timeout: 45000 },
@@ -12,7 +12,6 @@ export default defineConfig({
     launchOptions: {
       executablePath:
         process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
-      args: ["--enable-unsafe-swiftshader"],
     },
     screenshot: "only-on-failure",
   },

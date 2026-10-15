@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/showcase.css" />
-    <link rel="stylesheet" href="/immersive.css" />
+    <link rel="stylesheet" href="/presentation.css" />
     <script>document.documentElement.classList.add('js');</script>
   </head>
   <body>
@@ -63,30 +63,24 @@
     </header>
 
     <main id="conteudo">
-      <section class="hero hero--immersive" id="inicio" aria-labelledby="hero-title" data-house data-house-phase="loading">
-        <div class="house-canvas" data-house-canvas role="img" aria-label="Visita tridimensional a uma casa moderna, pela sala e corredor até o quarto"><p class="house-loading">Preparando sua visita 3D…</p></div>
-        <div class="house-shade" aria-hidden="true"></div>
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <img class="hero__mobile-image" src="/assets/cmc-hero-cama-frontal.png" alt="Cama alinhada de frente com colcha vermelha e mulher em pé ao lado" fetchpriority="high" />
+        <div class="hero__image" role="img" aria-label="Mulher em pé ao lado da cama alinhada de frente, com colcha vermelha e luz natural"></div>
+        <div class="hero__veil"></div>
+        <button class="hero-motion" type="button" data-hero-motion aria-pressed="false">Pausar movimento</button>
         <div class="shell hero__inner">
-          <div class="hero__content">
-            <p class="eyebrow">CMC Enxovais · Sinta-se em casa</p>
+          <div class="hero__content" data-reveal>
+            <p class="eyebrow eyebrow--light">CMC Enxovais <span aria-hidden="true">·</span> há mais de 20 anos</p>
             <h1 id="hero-title">Conforto que<br /><em>acolhe.</em></h1>
-            <p class="hero__intro">Uma casa para descobrir. Detalhes para viver.</p>
+            <p class="hero__intro">Enxovais e utilidades para deixar sua casa mais bonita e sua revenda cheia de possibilidades.</p>
             <div class="hero__actions">
               <a class="button button--light" href="#revendedores">Conhecer a revenda <span aria-hidden="true">↗</span></a>
               <a class="button button--ghost-light" href="/catalogo">Ver catálogo <span aria-hidden="true">→</span></a>
             </div>
           </div>
+
         </div>
-        <button class="house-prompt" type="button" data-house-enter hidden><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19 19 5M5 5h14v14" /></svg></span> Clique para entrar</button>
-        <div class="house-footer">
-          <p data-house-status role="status">A câmera vai conduzir você até a porta do quarto.</p>
-          <div class="house-actions">
-            <button type="button" data-house-pause aria-pressed="false">Pausar visita</button>
-            <button type="button" data-house-replay hidden>Rever entrada</button>
-            <a href="#experiencia-3d">Ir aos produtos <span aria-hidden="true">↓</span></a>
-          </div>
-        </div>
-        <noscript><p class="house-noscript">Ative o JavaScript para a visita 3D ou continue pelo catálogo.</p></noscript>
+        <a class="scroll-cue" href="#experiencia-3d" aria-label="Descer para explorar os produtos"><span></span>Desça para descobrir</a>
       </section>
 
       <section class="confidence-strip" aria-label="Diferenciais da CMC">
@@ -103,7 +97,6 @@
           <div class="studio-orbit studio-orbit--one" aria-hidden="true"></div>
           <div class="studio-orbit studio-orbit--two" aria-hidden="true"></div>
           <div class="studio-photo-host"><img data-real-product-photo src="/assets/products/taca.png" alt="Taça âmbar facetada original enviada" decoding="async" loading="lazy" /></div>
-          <div class="studio-canvas" role="group" aria-label="Demonstração 3D aproximada do produto" tabindex="0" hidden><p class="studio-loading">Preparando a demonstração…</p></div>
           <div class="studio-copy" aria-live="polite" aria-atomic="true">
             <p class="studio-eyebrow" data-studio-category>Mesa & encontros</p>
             <h2 id="studio-title">Um brinde aos <br>bons momentos.</h2>
@@ -122,19 +115,10 @@
           </div>
           <div class="studio-controls">
             <button type="button" data-studio-prev aria-label="Produto anterior">←</button>
-            <button type="button" data-studio-motion aria-pressed="false" disabled hidden>Pausar animação</button>
+            <button type="button" data-studio-motion aria-pressed="false">Pausar troca automática</button>
             <button type="button" data-studio-next aria-label="Próximo produto">→</button>
           </div>
         </div>
-        <div class="studio-view-switch" role="group" aria-label="Escolher visualização">
-          <button type="button" data-view-photo aria-pressed="true">Foto do produto</button>
-          <button type="button" data-view-model aria-pressed="false">Demonstração 3D aproximada</button>
-        </div>
-        <div class="studio-demo-bar" hidden>
-          <div><button type="button" data-product-demo disabled>Demonstrar funcionamento</button><button type="button" data-product-reset disabled>Restaurar vista</button></div>
-          <p data-demo-status role="status">Gire e explore o produto.</p>
-        </div>
-        <p class="studio-model-disclosure" data-model-note></p>
         <noscript><p class="studio-noscript">Use os links do catálogo para conhecer os produtos. A foto original da taça está disponível acima.</p></noscript>
       </section>
 
@@ -303,6 +287,6 @@
     </a>
     <script type="module" src="/main.js"></script>
     <script type="module" src="/showcase.js"></script>
-    <script type="module" src="/intro-3d.js"></script>
+    <script type="module" src="/intro-presentation.js"></script>
   </body>
 </html>
