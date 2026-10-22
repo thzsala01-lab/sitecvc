@@ -1,14 +1,14 @@
 # Site de motos elétricas
 
-Página estática responsiva, independente do projeto CMC Enxovais. Para executar:
+Site estático responsivo com seis fotografias enviadas pela loja, vitrine com ampliação de imagens e atendimento pelo WhatsApp +55 (37) 98811-3709. Os botões de cada opção levam uma mensagem específica ao WhatsApp. Nenhum envio é automático.
+
+Para abrir, extraia o ZIP e clique em `index.html`. Para desenvolvimento:
 
 ```sh
 cd /workspace/sitecvc/moto-eletrica
 python3 -m http.server 4173 --bind 0.0.0.0
 ```
 
-Abra o endereço do servidor no seu ambiente de desenvolvimento. Não requer banco, instalação ou build.
+Não requer banco de dados, instalação de dependências ou build. As fotos originais ficam em `assets/`, sem depender de hospedagem externa. A fonte online é opcional: o navegador usa a fonte alternativa quando estiver offline.
 
-A publicação de referência está vinculada em todos os botões do Instagram. Seu conteúdo não pôde ser consultado devido ao bloqueio de acesso do Instagram; o design e a ilustração são provisórios e originais, sem alegação de reproduzir a marca ou os produtos da publicação.
-
-Pendências para publicação: nome real da loja, fotos/material da marca para substituir a ilustração conceitual. WhatsApp configurado com o número fornecido pelo usuário: +55 (37) 98811-3709. Nenhum preço, modelo, autonomia ou disponibilidade foi inventado.
+A publicação fornecida está vinculada nos botões do Instagram. Seu conteúdo não pôde ser consultado por bloqueio de acesso. O nome da loja ainda precisa ser informado para substituir a identificação genérica. Os títulos das fotos são descritivos: modelos, preços, estoque e características técnicas devem ser confirmados com a loja.
